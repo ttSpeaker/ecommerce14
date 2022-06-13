@@ -1,12 +1,10 @@
-const { create, findProductById } = require('../models/products');
-const getDb = require('../utils/mongo-client').getDb;
-const { PRODUCTS_COLLECTION } = require('../utils/constants');
+const { create, findProductById, search } = require('../models/products');
 
 const createProduct = async (req, res, next) => {
   try {
     const title = req.body.title;
-    const price = req.body.price;
-    if (isNotValid(title) || isNotValid(price)) {
+    const price = +req.body.price;
+    if (!isValidTitle(title) || !isValidPrice(price)) {
       res.statusCode = 400;
       res.send('Cannot be empty');
       return;
@@ -18,21 +16,27 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-const isNotValid = (data) => {
-  return data == '';
+const isValidTitle = (title) => {
+  return title && title !== '';
 };
-
-const viewAllProducts = async (req, res, next) => {
+const isValidPrice = (price) => {
+  return price && price > 0;
+};
+const searchProducts = async (req, res, next) => {
   try {
-    const db = getDb();
-    const allProducts = await db.collection(PRODUCTS_COLLECTION);
-    allProducts.find({}).toArray(function (err, result) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(result);
-      }
-    });
+    const query = {};
+    const title = req.query.title;
+    if (title && title !== '') {
+      query.title = title;
+    }
+    const maxPrice = +req.query.maxPrice;
+
+    if (maxPrice && maxPrice > 0) {
+      query.price = { $lte: maxPrice };
+    }
+    console.log(query);
+    const allProducts = await search(query);
+    res.send(allProducts);
   } catch (error) {
     throw new Error(error);
   }
@@ -40,9 +44,9 @@ const viewAllProducts = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const product = await findProductById(req.query.id);
+    const product = await findProductById(req.params.id);
     res.send(product);
   } catch (error) {}
 };
 
-module.exports = { createProduct, viewAllProducts, getById };
+module.exports = { createProduct, searchProducts, getById };

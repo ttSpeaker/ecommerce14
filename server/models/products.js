@@ -12,6 +12,17 @@ const create = async (newProduct) => {
   }
 };
 
+const search = async (params) => {
+  try {
+    const collection = getDb().collection(PRODUCTS_COLLECTION);
+    const allProducts = await collection.find(params).toArray();
+    return allProducts;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
 const findProductById = async (id) => {
   try {
     const o_id = new ObjectId(id);
@@ -26,4 +37,4 @@ const findProductById = async (id) => {
   }
 };
 
-module.exports = { create, findProductById };
+module.exports = { create, findProductById, search };

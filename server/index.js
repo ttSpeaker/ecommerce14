@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 
 const STATIC_PATH = path.join(__dirname, '..', 'client', 'build');
 
-app.use('/api', productsRouter);
+app.use('/api/products', productsRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api', (req, res, next) => {
-  res.send('api');
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use(express.static(STATIC_PATH));
