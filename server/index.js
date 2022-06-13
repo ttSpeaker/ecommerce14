@@ -1,27 +1,29 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 
-const connectMongoDB = require("./utils/mongo-client").connectMongoDB;
+const connectMongoDB = require('./utils/mongo-client').connectMongoDB;
 
-const authRoutes = require("./routes/auth");
+const authRoutes = require('./routes/auth');
+const productsRouter = require('./routes/products');
 
 const app = express();
 
 app.use(bodyParser.json());
 
-const STATIC_PATH = path.join(__dirname, "..", "client", "build");
+const STATIC_PATH = path.join(__dirname, '..', 'client', 'build');
 
-app.use("/api/auth", authRoutes);
-app.use("/api", (req, res, next) => {
-  res.send("api");
+app.use('/api/products', productsRouter);
+app.use('/api/auth', authRoutes);
+app.use('/api', (req, res, next) => {
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use(express.static(STATIC_PATH));
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(STATIC_PATH, "index.html"));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(STATIC_PATH, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;

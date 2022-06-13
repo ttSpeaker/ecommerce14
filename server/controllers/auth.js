@@ -1,11 +1,11 @@
-const { createUser, findUserByEmail } = require("../models/user");
+const { createUser, findUserByEmail } = require('../models/user');
 
 const registerUser = async (req, res, next) => {
   // save user with model
   try {
     const userBody = req.body;
     if (await userWithEmailExists(userBody.email)) {
-      res.status(400).json({ message: "Email already exists" });
+      res.status(400).json({ message: 'Email already exists' });
       return;
     }
     const newUser = await createUser(userBody);
