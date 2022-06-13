@@ -1,5 +1,5 @@
-const getDb = require("../utils/mongo-client").getDb;
-const { USERS_COLLECTION } = require("../utils/constants");
+const getDb = require('../utils/mongo-client').getDb;
+const { USERS_COLLECTION } = require('../utils/constants');
 
 const createUser = async (newUser) => {
   try {
