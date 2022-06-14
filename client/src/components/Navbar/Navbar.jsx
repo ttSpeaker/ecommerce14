@@ -12,7 +12,6 @@ import {
     PopoverTrigger,
     PopoverContent,
     useBreakpointValue,
-    Input,
     useDisclosure,
     
   } from '@chakra-ui/react';
@@ -37,9 +36,9 @@ import {
           px={{ base: 4 }}
           borderBottom={1}
           borderStyle={'solid'}
-          borderColor={'orange.200'}
+          borderBottomColor={'orange.200'}
           align={'center'}
-          justify={"space-evenly"}>
+          justify={'space-between'}>
           <Flex
             flex={{md: 'auto' }}
             ml={{ base: -2 }}
@@ -65,12 +64,7 @@ import {
               <DesktopNav />
             </Flex>
           </Flex>
-          <Flex flex={{base: 1}} justify={"center"}>
-            <Input marginRight={"10px"} width={"50%"} placeholder='Buscador' color={"white"}  />
-            <Button backgroundColor={"orange.400"}>Buscar</Button>
-          </Flex>
 
-  
           <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
@@ -141,6 +135,7 @@ import {
                   border={0}
                   boxShadow={'xl'}
                   bg={popoverContentBgColor}
+                  color={linkColor}
                   p={4}
                   rounded={'xl'}
                   minW={'sm'}>
@@ -166,16 +161,14 @@ import {
         display={'block'}
         p={2}
         rounded={'md'}
-        _hover={{ bg: ('pink.50')}}>
+        _hover={{ bg: ('gray.600')}}>
         <Stack direction={'row'} align={'center'}>
           <Box>
             <Text
               transition={'all .3s ease'}
-              _groupHover={{ color: 'pink.400' }}
               fontWeight={500}>
               {label}
             </Text>
-            <Text fontSize={'sm'}>{subLabel}</Text>
           </Box>
           <Flex
             transition={'all .3s ease'}
@@ -185,7 +178,7 @@ import {
             justify={'flex-end'}
             align={'center'}
             flex={1}>
-            <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+            <Icon  w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
       </Link>
@@ -195,7 +188,7 @@ import {
   const MobileNav = () => {
     return (
       <Stack
-        bg={'white'}
+
         p={4}
         display={{ md: 'none' }}>
         {NAV_ITEMS.map((navItem) => (
@@ -221,7 +214,9 @@ import {
           }}>
           <Text
             fontWeight={600}
-            color={'gray.600'}>
+            color={'white'}
+            _hover={{ bg: ('gray.600')}}>
+            
             {label}
           </Text>
           {children && (
@@ -263,11 +258,31 @@ import {
     {
       label: 'Productos',
       href: "productos",
+      children: [
+        {
+          label: 'Indumentaria',
+          href: "productos",
+        },
+        {
+          label: 'Tecnologia',
+          href: "productos",
+        },
+        {
+          label: 'Electrodomesticos',
+          href: "productos",
+        },
+        {
+          label: 'Automoviles',
+          href: "productos",
+        },
+      ],
     },
+
     {
       label: 'Contacto',
       href: '#',
     },
+
     {
       label: 'Sobre nosotros',
       href: '#',
