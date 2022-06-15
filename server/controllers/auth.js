@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const { createUser, findUserByEmail } = require('../models/user');
 const salt = 10;
+
 const registerUser = async (req, res, next) => {
   // save user with model
   try {
@@ -31,8 +34,16 @@ const loginUser = async (req, res, next) => {
     try {
       const result = await bcrypt.compare(userBody.password, user.password);
       if (result) {
-        // JWT
-        res.send('LOGGED IN ');
+        const accesToken = await jwt.sign(
+          {
+            userId: user._id,
+            email: user.email,
+            role: user.role || 'none',
+          },
+          process.env.ACCES_TOKEN_KEY,
+          { expiresIn: 1800 }
+        );
+        res.json({ accesToken: accesToken });
         return;
       }
     } catch (error) {}
