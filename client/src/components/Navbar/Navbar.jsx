@@ -78,7 +78,7 @@ import {
               href={'#'}
               color={"whiteAlpha.500"}
               _hover={{color: "orange.400"}}>
-              Registrarse
+              <Link><a href="register">Registrarse</a></Link>
             </Button>
             <Button
               display={{ base: 'none', md: 'inline-flex' }}
@@ -90,7 +90,7 @@ import {
               _hover={{
                 bg: 'orange.300',
               }}>
-              Iniciar sesion
+              <Link><a href="login">Iniciar sesion</a></Link>
             </Button>
           </Stack>
         </Flex>
