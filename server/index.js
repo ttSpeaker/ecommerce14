@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const cors = require('cors');
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -10,7 +12,7 @@ const authRoutes = require('./routes/auth');
 const productsRouter = require('./routes/products');
 
 const app = express();
-
+app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 
 const STATIC_PATH = path.join(__dirname, '..', 'client', 'build');
