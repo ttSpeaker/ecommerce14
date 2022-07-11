@@ -23,4 +23,15 @@ const findUserByEmail = async (email) => {
   }
 };
 
-module.exports = { createUser, findUserByEmail };
+const updateUser = async (user) => {
+  try {
+    const db = getDb();
+    const result = await db
+      .collection(USERS_COLLECTION)
+      .replaceOne({ _id: user._id }, user);
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+module.exports = { createUser, findUserByEmail, updateUser };
