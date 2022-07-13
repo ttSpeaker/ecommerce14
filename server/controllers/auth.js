@@ -67,7 +67,6 @@ const loginUser = async (req, res, next) => {
       return;
     }
   }
-  console.log(error);
   res.status(403).json({ message: 'User not found' });
   return;
 };

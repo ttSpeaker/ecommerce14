@@ -23,6 +23,7 @@ export default function RegisterComponent(props) {
   const { handleSubmit, register } = useForm();
 
   function onSubmit(values) {
+    console.log('submit')
     props.submit(values);
   }
 
@@ -37,7 +38,7 @@ export default function RegisterComponent(props) {
         <Box rounded={"lg"} bg={"gray.500"} boxShadow={"lg"} p={8}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={4}>
-              <HStack>
+              {/* <HStack>
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>Nombre</FormLabel>
@@ -68,7 +69,7 @@ export default function RegisterComponent(props) {
                     />
                   </FormControl>
                 </Box>
-              </HStack>
+              </HStack> */}
               <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
